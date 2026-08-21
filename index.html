@@ -226,6 +226,71 @@
             min-width: 36px;
             font-size: 13px;
         }
+        /* 1. Site-wide reveal-on-scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* 3. Scroll progress bar */
+        #scroll-progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, #2c4585, #5879ce, #97a9d7);
+            z-index: 99999;
+            transition: width 0.12s ease-out;
+        }
+        /* 4. Subtle grain texture overlay */
+        .grain-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            pointer-events: none;
+            opacity: 0.035;
+            mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+        }
+        /* 6. Glassmorphism cards */
+        .card-inner .card-box {
+            background: rgba(255, 255, 255, 0.06) !important;
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        /* 7. Stat callout */
+        .stat-callout {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin: 16px 0;
+            padding: 16px 20px;
+            border-radius: 14px;
+            background: rgba(88, 121, 206, 0.08);
+            border-left: 3px solid #5879ce;
+        }
+        .stat-callout .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(135deg, #97a9d7, #5879ce);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .stat-callout .stat-caption {
+            font-size: 13px;
+            color: #cfcfcf;
+            max-width: 180px;
+            line-height: 1.4;
+        }
         .testimonial-quote {
             max-height: 8.5em;
             line-height: 1.6em;
@@ -290,6 +355,8 @@
 </head>
 
 <body>
+    <div class="grain-overlay"></div>
+    <div id="scroll-progress-bar"></div>
     <div class="page">
         <!--
             Preloader
@@ -448,7 +515,7 @@
                             <div class="row service-items">
                                 <!-- service item -->
                                 <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6">
-                                    <div class="service-item card-box">
+                                    <div class="service-item card-box reveal">
                                         <div class="icon"><i class="la la-bullhorn"></i></div>
                                         <div class="name">Google Ads &amp; SEM</div>
                                         <p>
@@ -458,7 +525,7 @@
                                 </div>
                                 <!-- service item -->
                                 <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6">
-                                    <div class="service-item card-box">
+                                    <div class="service-item card-box reveal">
                                         <div class="icon"><i class="la la-cubes"></i></div>
                                         <div class="name">Performance Marketing</div>
                                         <p>
@@ -468,7 +535,7 @@
                                 </div>
                                 <!-- service item -->
                                 <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6">
-                                    <div class="service-item card-box">
+                                    <div class="service-item card-box reveal">
                                         <div class="icon"><i class="la la-bar-chart"></i></div>
                                         <div class="name">Analytics &amp; Conversion Tracking</div>
                                         <p>
@@ -478,7 +545,7 @@
                                 </div>
                                 <!-- service item -->
                                 <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6">
-                                    <div class="service-item card-box">
+                                    <div class="service-item card-box reveal">
                                         <div class="icon"><i class="la la-gear"></i></div>
                                         <div class="name">Digital Strategy</div>
                                         <p>
@@ -561,7 +628,7 @@
                             <div class="row client-items">
                                 <!-- client item: Tide Rock (Sep 2024-Present) -->
                                 <div class="col col-m-6 col-t-6 col-d-3 col-d-lg-3">
-                                    <div class="client-item card-box">
+                                    <div class="client-item card-box reveal">
                                         <div class="image">
                                             <a target="_blank" rel="noopener noreferrer" href="https://tiderock.com/">
                                                 <div class="logo-chip"><img src="images/clients/tiderock.png" alt="Tide Rock" /></div>
@@ -579,7 +646,7 @@
                             <div class="row client-items">
                                 <!-- client item: Sydney Digital Marketing (Jun 2022-Sep 2024) -->
                                 <div class="col col-m-6 col-t-6 col-d-3 col-d-lg-3">
-                                    <div class="client-item card-box">
+                                    <div class="client-item card-box reveal">
                                         <div class="image">
                                             <a target="_blank" rel="noopener noreferrer" href="https://sydneydigitalmarketing.com.au/">
                                                 <div class="logo-chip"><img src="images/clients/sdm.png" alt="Sydney Digital Marketing" /></div>
@@ -589,7 +656,7 @@
                                 </div>
                                 <!-- client item: Uplers (Jun 2022-Sep 2025) -->
                                 <div class="col col-m-6 col-t-6 col-d-3 col-d-lg-3">
-                                    <div class="client-item card-box">
+                                    <div class="client-item card-box reveal">
                                         <div class="image">
                                             <a target="_blank" rel="noopener noreferrer" href="https://www.uplers.com/">
                                                 <div class="logo-chip"><img src="images/clients/uplers.png" alt="Uplers" /></div>
@@ -599,7 +666,7 @@
                                 </div>
                                 <!-- client item: Zenith / Publicis Groupe (Jan 2021-Aug 2022) -->
                                 <div class="col col-m-6 col-t-6 col-d-3 col-d-lg-3">
-                                    <div class="client-item card-box">
+                                    <div class="client-item card-box reveal">
                                         <div class="image">
                                             <a target="_blank" rel="noopener noreferrer" href="https://www.zenithmedia.com/">
                                                 <div class="logo-chip"><img src="images/clients/zenith.png" alt="Zenith - The ROI Agency" /></div>
@@ -609,7 +676,7 @@
                                 </div>
                                 <!-- client item: Google Ads / Google Partner -->
                                 <div class="col col-m-6 col-t-6 col-d-3 col-d-lg-3">
-                                    <div class="client-item card-box">
+                                    <div class="client-item card-box reveal">
                                         <div class="image">
                                             <a target="_blank" rel="noopener noreferrer" href="https://ads.google.com/">
                                                 <div class="logo-chip" style="flex-direction:column; gap:6px;">
@@ -622,7 +689,7 @@
                                 </div>
                                 <!-- client item: Dryve Consulting (Dec 2021-Dec 2022) -->
                                 <div class="col col-m-6 col-t-6 col-d-3 col-d-lg-3">
-                                    <div class="client-item card-box">
+                                    <div class="client-item card-box reveal">
                                         <div class="image">
                                             <a target="_blank" rel="noopener noreferrer" href="https://www.dryveconsulting.com/">
                                                 <div class="logo-chip"><img src="images/clients/dryve.png" alt="Dryve Consulting" /></div>
@@ -640,7 +707,7 @@
                             <div class="row client-items">
                                 <!-- client item: BYJU'S (Jun 2018-Oct 2018) -->
                                 <div class="col col-m-6 col-t-6 col-d-3 col-d-lg-3">
-                                    <div class="client-item card-box">
+                                    <div class="client-item card-box reveal">
                                         <div class="image">
                                             <a target="_blank" rel="noopener noreferrer" href="https://byjus.com/">
                                                 <div class="logo-chip"><img src="images/clients/byjus.png" alt="BYJU'S" /></div>
@@ -650,7 +717,7 @@
                                 </div>
                                 <!-- client item: 3Dexter (May 2017-Jul 2017) — site no longer active, link removed -->
                                 <div class="col col-m-6 col-t-6 col-d-3 col-d-lg-3">
-                                    <div class="client-item card-box">
+                                    <div class="client-item card-box reveal">
                                         <div class="image">
                                             <div class="logo-chip"><img src="images/clients/client_2.png" alt="3Dexter" /></div>
                                         </div>
@@ -658,7 +725,7 @@
                                 </div>
                                 <!-- client item: CherryQuill (Oct 2016-Jan 2017) — site no longer active, link removed -->
                                 <div class="col col-m-6 col-t-6 col-d-3 col-d-lg-3">
-                                    <div class="client-item card-box">
+                                    <div class="client-item card-box reveal">
                                         <div class="image">
                                             <div class="logo-chip"><img src="images/clients/client_3.png" alt="CherryQuill" /></div>
                                         </div>
@@ -835,12 +902,16 @@
                                     <!-- resume items -->
                                     <div class="resume-items card-box">
                                         <!-- resume item: New Delhi YMCA (elevated) — Cyclothon nested here since it's a YMCA initiative -->
-                                        <div class="resume-item leadership-highlight">
+                                        <div class="resume-item leadership-highlight reveal">
                                             <div class="name"><a href="https://www.newdelhiymca.in/about-us" target="_blank" rel="noopener noreferrer">New Delhi YMCA</a></div>
                                             <div class="date">Board of Directors · 2023–Present</div>
                                             <p>• Chairman, Institute for Fashion Technology &amp; Design (2026) </p>
                                             <p>• Chairman, Programme, Cultural &amp; Tribal Committee (2025) </p>
                                             <p>• Chairman, Programme, Students &amp; Youth (2023–2024) </p>
+                                            <div class="stat-callout">
+                                                <div class="stat-number">180</div>
+                                                <div class="stat-caption">riders briefed and led at Cyclothon 3.0, New Delhi</div>
+                                            </div>
                                             <p style="margin-top:14px; font-weight:700; color:#ffffff;">Selected Initiative — Cyclothon</p>
                                             <p>• Cyclothon 3.0 — 180 riders · 2026 </p>
                                             <p>• Cyclothon 2.0 · 2024 </p>
@@ -853,7 +924,7 @@
                                             </p>
                                         </div>
                                         <!-- resume item -->
-                                        <div class="resume-item">
+                                        <div class="resume-item reveal">
                                             <div class="name"><a href="https://www.dioceseofdelhi.org/youth" target="_blank" rel="noopener noreferrer">Diocesan Youth Fellowship Committee</a></div>
                                             <div class="date">Youth President · 2023–2026</div>
                                         </div>
@@ -1047,7 +1118,7 @@
                             <div class="row grid-items">
                                 <!-- item: Cyclothon press coverage -->
                                 <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6 grid-item press">
-                                    <div class="box-item card-box">
+                                    <div class="box-item card-box reveal">
                                         <div class="desc" style="padding:20px;">
                                             <a href="https://thewire.in/ptiprnews/new-delhi-ymca-organizes-cyclothon-3-0-180-riders-pedal-for-a-pollution-free-environment" target="_blank" rel="noopener noreferrer" class="name">Cyclothon 3.0 — 180 riders</a>
                                             <div class="category">Press</div>
@@ -1061,7 +1132,7 @@
                                 </div>
                                 <!-- item: Uplers success story -->
                                 <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6 grid-item press">
-                                    <div class="box-item card-box">
+                                    <div class="box-item card-box reveal">
                                         <div class="desc" style="padding:20px;">
                                             <a href="https://www.uplers.com/talent/resources/success-stories/finding-the-balance-in-life-talent-success-story-oliver-joshua-jacob/" target="_blank" rel="noopener noreferrer" class="name">Uplers Talent Success Story</a>
                                             <div class="category">Press</div>
@@ -1071,7 +1142,7 @@
                                 </div>
                                 <!-- item: Documentary feature -->
                                 <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6 grid-item press">
-                                    <div class="box-item card-box">
+                                    <div class="box-item card-box reveal">
                                         <div class="desc" style="padding:20px;">
                                             <a href="https://www.youtube.com/watch?v=bs_c8CJkKd0" target="_blank" rel="noopener noreferrer" class="name">Featured in a Documentary</a>
                                             <div class="category">Press</div>
@@ -1081,7 +1152,7 @@
                                 </div>
                                 <!-- item: YMCA board -->
                                 <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6 grid-item leadership">
-                                    <div class="box-item card-box">
+                                    <div class="box-item card-box reveal">
                                         <div class="desc" style="padding:20px;">
                                             <a href="https://www.newdelhiymca.in/about-us" target="_blank" rel="noopener noreferrer" class="name">New Delhi YMCA — Board of Directors</a>
                                             <div class="category">Leadership</div>
@@ -1091,7 +1162,7 @@
                                 </div>
                                 <!-- item: DYFC Youth President -->
                                 <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6 grid-item leadership">
-                                    <div class="box-item card-box">
+                                    <div class="box-item card-box reveal">
                                         <div class="desc" style="padding:20px;">
                                             <a href="https://www.dioceseofdelhi.org/youth" target="_blank" rel="noopener noreferrer" class="name">Youth President — DYFC</a>
                                             <div class="category">Leadership</div>
@@ -1101,7 +1172,7 @@
                                 </div>
                                 <!-- item: Diocese / DYFC -->
                                 <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6 grid-item leadership">
-                                    <div class="box-item card-box">
+                                    <div class="box-item card-box reveal">
                                         <div class="desc" style="padding:20px;">
                                             <a href="https://www.dioceseofdelhi.org/news/delhi-diocesan-youth-fellowship-bike-rally-faith-in-motion" target="_blank" rel="noopener noreferrer" class="name">Diocesan Youth Fellowship — Faith in Motion</a>
                                             <div class="category">Leadership</div>
@@ -1111,7 +1182,7 @@
                                 </div>
                                 <!-- item: Cycling records -->
                                 <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6 grid-item cycling">
-                                    <div class="box-item card-box">
+                                    <div class="box-item card-box reveal">
                                         <div class="desc" style="padding:20px;">
                                             <a href="https://www.audaxindia.in/event-e-7890" target="_blank" rel="noopener noreferrer" class="name">400km BRM — Audax India</a>
                                             <div class="category">Cycling</div>
@@ -1121,7 +1192,7 @@
                                 </div>
                                 <!-- item: St. James' Church (past role) -->
                                 <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6 grid-item leadership">
-                                    <div class="box-item card-box">
+                                    <div class="box-item card-box reveal">
                                         <div class="desc" style="padding:20px;">
                                             <a href="https://stjameschurchdelhi.net/" target="_blank" rel="noopener noreferrer" class="name">St. James' Church — Youth President (Pastorate)</a>
                                             <div class="category">Leadership</div>
@@ -1171,7 +1242,7 @@
                                     <div class="row contacts-items">
                                         <!-- contacts item -->
                                         <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6">
-                                            <div class="contacts-item card-box">
+                                            <div class="contacts-item card-box reveal">
                                                 <div class="icon"><i class="la la-map-marker"></i></div>
                                                 <div class="name">Address</div>
                                                 <p>
@@ -1181,7 +1252,7 @@
                                         </div>
                                         <!-- contacts item -->
                                         <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6">
-                                            <div class="contacts-item card-box">
+                                            <div class="contacts-item card-box reveal">
                                                 <div class="icon"><i class="la la-at"></i></div>
                                                 <div class="name">Email</div>
                                                 <p>
@@ -1191,7 +1262,7 @@
                                         </div>
                                         <!-- contacts item -->
                                         <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6">
-                                            <div class="contacts-item card-box">
+                                            <div class="contacts-item card-box reveal">
                                                 <div class="icon"><i class="la la-phone"></i></div>
                                                 <div class="name">Phone</div>
                                                 <p>
@@ -1201,7 +1272,7 @@
                                         </div>
                                         <!-- contacts item -->
                                         <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6">
-                                            <div class="contacts-item card-box">
+                                            <div class="contacts-item card-box reveal">
                                                 <div class="icon"><i class="la la-check-square"></i></div>
                                                 <div class="name">Open to</div>
                                                 <p>
@@ -1259,14 +1330,45 @@
             <script src="js/scripts.js"></script>
             <script src="js/particles-setting.js"></script>
             <!--
-        Years-of-experience counter — recalculates automatically, no manual updates needed
+        2. Years-of-experience counter — counts up from 0 when scrolled into view, target recalculates automatically
     -->
             <script>
                 (function() {
                     var CAREER_START_YEAR = 2018; // digital marketing career start (BYJU'S, June 2018)
-                    var years = new Date().getFullYear() - CAREER_START_YEAR;
+                    var target = new Date().getFullYear() - CAREER_START_YEAR;
                     var el = document.getElementById('years-exp');
-                    if (el) { el.textContent = years; }
+                    if (!el) return;
+                    var done = false;
+                    function animateCount() {
+                        if (done) return;
+                        done = true;
+                        var duration = 1100;
+                        var startTime = null;
+                        function step(ts) {
+                            if (!startTime) startTime = ts;
+                            var progress = Math.min((ts - startTime) / duration, 1);
+                            el.textContent = Math.floor(progress * target);
+                            if (progress < 1) {
+                                requestAnimationFrame(step);
+                            } else {
+                                el.textContent = target;
+                            }
+                        }
+                        requestAnimationFrame(step);
+                    }
+                    if ('IntersectionObserver' in window) {
+                        var obs = new IntersectionObserver(function(entries) {
+                            entries.forEach(function(entry) {
+                                if (entry.isIntersecting) {
+                                    animateCount();
+                                    obs.unobserve(entry.target);
+                                }
+                            });
+                        }, { threshold: 0.3 });
+                        obs.observe(el);
+                    } else {
+                        el.textContent = target;
+                    }
                 })();
             </script>
             <!--
@@ -1285,11 +1387,12 @@
                 }
             </script>
             <!--
-        Testimonial fade-in on scroll
+        1. Site-wide fade-in on scroll (testimonials + every .reveal element:
+        services, logos, media & recognition, contact cards, leadership highlights)
     -->
             <script>
                 (function() {
-                    var cards = document.querySelectorAll('.testimonial-item, .testimonial-hero');
+                    var cards = document.querySelectorAll('.testimonial-item, .testimonial-hero, .reveal');
                     if (!cards.length) return;
                     if (!('IntersectionObserver' in window)) {
                         cards.forEach(function(el) { el.classList.add('in-view'); });
@@ -1299,13 +1402,58 @@
                         entries.forEach(function(entry, i) {
                             if (entry.isIntersecting) {
                                 var el = entry.target;
-                                var delay = (i % 3) * 100;
+                                var delay = (i % 4) * 90;
                                 setTimeout(function() { el.classList.add('in-view'); }, delay);
                                 observer.unobserve(el);
                             }
                         });
                     }, { threshold: 0.15 });
                     cards.forEach(function(el) { observer.observe(el); });
+                })();
+            </script>
+            <!--
+        3. Scroll progress bar — tracks scroll position within the currently
+        active section (this theme shows one full-screen section at a time,
+        each with its own internally scrollable content via SimpleBar)
+    -->
+            <script>
+                (function() {
+                    var bar = document.getElementById('scroll-progress-bar');
+                    if (!bar) return;
+                    var currentTarget = null;
+
+                    function updateBar() {
+                        if (!currentTarget) { bar.style.width = '0%'; return; }
+                        var scrollable = currentTarget.scrollHeight - currentTarget.clientHeight;
+                        var pct = scrollable > 0 ? (currentTarget.scrollTop / scrollable) * 100 : 0;
+                        bar.style.width = pct + '%';
+                    }
+
+                    function bindActiveSection() {
+                        if (currentTarget) {
+                            currentTarget.removeEventListener('scroll', updateBar);
+                        }
+                        var activeCard = document.querySelector('.card-inner.active');
+                        if (!activeCard) { currentTarget = null; updateBar(); return; }
+                        var scrollWrapper = activeCard.querySelector('.simplebar-scroll-content');
+                        currentTarget = scrollWrapper || null;
+                        if (currentTarget) {
+                            currentTarget.addEventListener('scroll', updateBar);
+                        }
+                        updateBar();
+                    }
+
+                    var cardEls = document.querySelectorAll('.card-inner');
+                    if ('MutationObserver' in window) {
+                        var mo = new MutationObserver(function() { bindActiveSection(); });
+                        cardEls.forEach(function(c) {
+                            mo.observe(c, { attributes: true, attributeFilter: ['class'] });
+                        });
+                    }
+
+                    // SimpleBar builds its scroll wrapper shortly after DOMContentLoaded/load,
+                    // so give it a moment before the first bind attempt.
+                    setTimeout(bindActiveSection, 400);
                 })();
             </script>
 </body>
