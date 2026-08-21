@@ -1570,30 +1570,81 @@
         3. Scroll progress bar — tracks scroll position within the currently
         active section (this theme shows one full-screen section at a time,
         each with its own internally scrollable content via SimpleBar)
+
+        Also: auto-advance to the next section after the visitor holds at the
+        bottom of the current one for a moment. Deliberately NOT instant on
+        first touching the bottom — that would feel like the page yanking
+        control away. Requiring a short dwell/continued-scroll moment first
+        makes it read as "the page is helping me move forward" rather than
+        "scroll-jacking".
     -->
             <script>
                 (function() {
                     var bar = document.getElementById('scroll-progress-bar');
-                    if (!bar) return;
                     var currentTarget = null;
+                    var bottomTimer = null;
+                    var advancedForThisSection = false;
+
+                    // Matches the forward chain shown by the "next section" hint links.
+                    // Deliberately no loop back from Contacts — reaching the end there
+                    // shouldn't auto-force the visitor back to Home.
+                    var NEXT_SECTION = {
+                        'home-card': 'about-card',
+                        'about-card': 'resume-card',
+                        'resume-card': 'leadership-card',
+                        'leadership-card': 'works-card',
+                        'works-card': 'contacts-card'
+                    };
 
                     function updateBar() {
+                        if (!bar) return;
                         if (!currentTarget) { bar.style.width = '0%'; return; }
                         var scrollable = currentTarget.scrollHeight - currentTarget.clientHeight;
                         var pct = scrollable > 0 ? (currentTarget.scrollTop / scrollable) * 100 : 0;
                         bar.style.width = pct + '%';
                     }
 
+                    function checkAutoAdvance(activeCardId) {
+                        if (!currentTarget || advancedForThisSection) return;
+                        var nextId = NEXT_SECTION[activeCardId];
+                        if (!nextId) return;
+
+                        var scrollable = currentTarget.scrollHeight - currentTarget.clientHeight;
+                        var atBottom = scrollable > 30 && (currentTarget.scrollTop >= scrollable - 15);
+
+                        if (atBottom) {
+                            if (!bottomTimer) {
+                                bottomTimer = setTimeout(function() {
+                                    advancedForThisSection = true;
+                                    goToSection(nextId);
+                                }, 750);
+                            }
+                        } else if (bottomTimer) {
+                            clearTimeout(bottomTimer);
+                            bottomTimer = null;
+                        }
+                    }
+
                     function bindActiveSection() {
                         if (currentTarget) {
-                            currentTarget.removeEventListener('scroll', updateBar);
+                            currentTarget.removeEventListener('scroll', onScroll);
                         }
+                        if (bottomTimer) { clearTimeout(bottomTimer); bottomTimer = null; }
+                        advancedForThisSection = false;
+
                         var activeCard = document.querySelector('.card-inner.active');
                         if (!activeCard) { currentTarget = null; updateBar(); return; }
+                        var activeCardId = activeCard.id;
                         var scrollWrapper = activeCard.querySelector('.simplebar-scroll-content');
                         currentTarget = scrollWrapper || null;
+
+                        function onScroll() {
+                            updateBar();
+                            checkAutoAdvance(activeCardId);
+                        }
+
                         if (currentTarget) {
-                            currentTarget.addEventListener('scroll', updateBar);
+                            currentTarget.addEventListener('scroll', onScroll);
                         }
                         updateBar();
                     }
