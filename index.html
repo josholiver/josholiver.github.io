@@ -137,6 +137,41 @@
             color: #ee534f;
             margin: 18px 0 8px 0;
         }
+        .testimonial-item {
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+        .testimonial-quote {
+            max-height: 3.2em;
+            overflow-y: auto;
+            transition: max-height 0.25s ease;
+            padding-right: 4px;
+        }
+        .testimonial-quote.expanded {
+            max-height: 220px;
+        }
+        .testimonial-quote::-webkit-scrollbar {
+            width: 4px;
+        }
+        .testimonial-quote::-webkit-scrollbar-thumb {
+            background: rgba(238, 83, 79, 0.4);
+            border-radius: 2px;
+        }
+        .testimonial-readmore {
+            color: #ee534f;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 8px;
+            display: inline-block;
+        }
+        .testimonial-name {
+            margin-top: auto;
+            padding-top: 10px;
+        }
         .leadership-highlight {
             background: rgba(238, 83, 79, 0.08);
             border-left: 3px solid #ee534f;
@@ -380,74 +415,68 @@
                             <div class="row service-items">
                                 <!-- testimonial: Radhika Bhama -->
                                 <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6">
-                                    <div class="service-item card-box">
+                                    <div class="service-item card-box testimonial-item">
                                         <div class="icon"><i class="la la-quote-left"></i></div>
-                                        <p style="font-style:italic;">
-                                            "I've had the pleasure of collaborating with Oliver, and he truly excels as a marketing professional. His remarkable ability to persuade, coupled with exceptional communication skills and a dedicated commitment to delivering the best for his clients, make him an ideal choice as your marketing expert. I wholeheartedly recommend Oliver for his outstanding talents in the field."
-                                        </p>
-                                        <div class="name" style="margin-top:10px; font-size:14px;">
-                                            — Radhika Bhama, Founder, B2B Demand Generation Company
+                                        <div class="testimonial-quote"><p style="font-style:italic;">
+                                            "I've had the pleasure of collaborating with Oliver, and he truly excels as a marketing professional. His remarkable ability to persuade, coupled with exceptional communication skills and a dedicated commitment to delivering the best for his clients, make him an ideal choice as your marketing expert. I wholeheartedly recommend Oliver for his outstanding talents in the field."</p><span class="testimonial-readmore" onclick="toggleTestimonial(this)">Read more</span></div>
+                                        <div class="name testimonial-name" style="font-size:14px;">
+— Radhika Bhama, Founder, B2B Demand Generation Company
                                         </div>
                                     </div>
                                 </div>
                                 <!-- testimonial: Jyotirmoy Saha (full text) -->
                                 <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6">
-                                    <div class="service-item card-box">
+                                    <div class="service-item card-box testimonial-item">
                                         <div class="icon"><i class="la la-quote-left"></i></div>
-                                        <p style="font-style:italic;">
+                                        <div class="testimonial-quote"><p style="font-style:italic;">
                                             "I am delighted to write a recommendation for Oliver, a gem of a professional who has demonstrated an outstanding level of expertise in computer science, web analysis, SEO, SEM, and graphic design. Having worked alongside him for several years, I have witnessed firsthand his ability to decode intricate data sets, optimize digital strategies, and craft captivating designs, all while specializing in the Google Marketing Stack.
-                                            With over five years of experience in these fields, Oliver has successfully led a multitude of impactful SEO and SEM campaigns aimed at driving traffic, increasing brand awareness, and boosting online sales. He takes a unique approach to understanding user behavior through web analysis, which allows him to make informed decisions that help achieve business goals effectively."
-                                        </p>
-                                        <div class="name" style="margin-top:10px; font-size:14px;">
-                                            — <a href="https://www.linkedin.com/in/jyotirmoy-saha-454a72125/" target="_blank" rel="noopener noreferrer">Jyotirmoy Saha</a>, Performance Marketing Leader
+                                            With over five years of experience in these fields, Oliver has successfully led a multitude of impactful SEO and SEM campaigns aimed at driving traffic, increasing brand awareness, and boosting online sales. He takes a unique approach to understanding user behavior through web analysis, which allows him to make informed decisions that help achieve business goals effectively."</p><span class="testimonial-readmore" onclick="toggleTestimonial(this)">Read more</span></div>
+                                        <div class="name testimonial-name" style="font-size:14px;">
+— <a href="https://www.linkedin.com/in/jyotirmoy-saha-454a72125/" target="_blank" rel="noopener noreferrer">Jyotirmoy Saha</a>, Performance Marketing Leader
                                         </div>
                                     </div>
                                 </div>
                                 <!-- testimonial: Manjeet Sharma -->
                                 <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6">
-                                    <div class="service-item card-box">
+                                    <div class="service-item card-box testimonial-item">
                                         <div class="icon"><i class="la la-quote-left"></i></div>
-                                        <p style="font-style:italic;">
-                                            "It is very rare that you come across a talent like Oliver Joshua Jacob, I have had the pleasure to work with him, we handled so many ROI projects together and I must say that he is ready for the corporate world. He confronts all the challenges with full confidence and rationalizes them in the most optimal way. His utmost hard work, dedication, and diligence towards the work make him stand out in the crowd."
-                                        </p>
-                                        <div class="name" style="margin-top:10px; font-size:14px;">
-                                            — Manjeet Sharma, Performance Marketing Head, ResultFirst
+                                        <div class="testimonial-quote"><p style="font-style:italic;">
+                                            "It is very rare that you come across a talent like Oliver Joshua Jacob, I have had the pleasure to work with him, we handled so many ROI projects together and I must say that he is ready for the corporate world. He confronts all the challenges with full confidence and rationalizes them in the most optimal way. His utmost hard work, dedication, and diligence towards the work make him stand out in the crowd."</p><span class="testimonial-readmore" onclick="toggleTestimonial(this)">Read more</span></div>
+                                        <div class="name testimonial-name" style="font-size:14px;">
+— Manjeet Sharma, Performance Marketing Head, ResultFirst
                                         </div>
                                     </div>
                                 </div>
                                 <!-- testimonial: Ahmad Surati -->
                                 <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6">
-                                    <div class="service-item card-box">
+                                    <div class="service-item card-box testimonial-item">
                                         <div class="icon"><i class="la la-quote-left"></i></div>
-                                        <p style="font-style:italic;">
-                                            "Oliver's level of commitment and dedication is something I personally aspire to reach at. During the time we've been together, he has always displayed a sense of responsibility and ownership for all the Google Ads Accounts he managed. His curiosity, innovative mindset, and unending quest to keep learning and growing keeps him separated from the pack. I'm sure he'll add immense value in any team/organisation he'll be a part of."
-                                        </p>
-                                        <div class="name" style="margin-top:10px; font-size:14px;">
-                                            — Ahmad Surati, B2B SaaS Growth &amp; Full-Funnel Strategist
+                                        <div class="testimonial-quote"><p style="font-style:italic;">
+                                            "Oliver's level of commitment and dedication is something I personally aspire to reach at. During the time we've been together, he has always displayed a sense of responsibility and ownership for all the Google Ads Accounts he managed. His curiosity, innovative mindset, and unending quest to keep learning and growing keeps him separated from the pack. I'm sure he'll add immense value in any team/organisation he'll be a part of."</p><span class="testimonial-readmore" onclick="toggleTestimonial(this)">Read more</span></div>
+                                        <div class="name testimonial-name" style="font-size:14px;">
+— Ahmad Surati, B2B SaaS Growth &amp; Full-Funnel Strategist
                                         </div>
                                     </div>
                                 </div>
                                 <!-- testimonial: Aby Thomas -->
                                 <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6">
-                                    <div class="service-item card-box">
+                                    <div class="service-item card-box testimonial-item">
                                         <div class="icon"><i class="la la-quote-left"></i></div>
-                                        <p style="font-style:italic;">
-                                            "Oliver is a hardworking person, responsible with great knowledge of Google Ads account management and social media advertising. He is a great co-worker always willing to collaborate in group work and always predisposed to help and teach to expand his own knowledge and that of his colleagues who are part of the work team."
-                                        </p>
-                                        <div class="name" style="margin-top:10px; font-size:14px;">
-                                            — Aby Thomas, Google Ads Specialist, PPC &amp; Strategic Marketing
+                                        <div class="testimonial-quote"><p style="font-style:italic;">
+                                            "Oliver is a hardworking person, responsible with great knowledge of Google Ads account management and social media advertising. He is a great co-worker always willing to collaborate in group work and always predisposed to help and teach to expand his own knowledge and that of his colleagues who are part of the work team."</p><span class="testimonial-readmore" onclick="toggleTestimonial(this)">Read more</span></div>
+                                        <div class="name testimonial-name" style="font-size:14px;">
+— Aby Thomas, Google Ads Specialist, PPC &amp; Strategic Marketing
                                         </div>
                                     </div>
                                 </div>
                                 <!-- testimonial: Shashank Gupta -->
                                 <div class="col col-m-12 col-t-6 col-d-6 col-d-lg-6">
-                                    <div class="service-item card-box">
+                                    <div class="service-item card-box testimonial-item">
                                         <div class="icon"><i class="la la-quote-left"></i></div>
-                                        <p style="font-style:italic;">
-                                            "Oliver is a keen observer and pays attention to every detail. I have known him for a long time and the way he uses his tactics in online marketing and research activities makes him a leader in promoting business."
-                                        </p>
-                                        <div class="name" style="margin-top:10px; font-size:14px;">
-                                            — Shashank Gupta, Program Manager, Business Excellence &amp; Strategy
+                                        <div class="testimonial-quote"><p style="font-style:italic;">
+                                            "Oliver is a keen observer and pays attention to every detail. I have known him for a long time and the way he uses his tactics in online marketing and research activities makes him a leader in promoting business."</p><span class="testimonial-readmore" onclick="toggleTestimonial(this)">Read more</span></div>
+                                        <div class="name testimonial-name" style="font-size:14px;">
+— Shashank Gupta, Program Manager, Business Excellence &amp; Strategy
                                         </div>
                                     </div>
                                 </div>
@@ -1176,6 +1205,21 @@
                     var el = document.getElementById('years-exp');
                     if (el) { el.textContent = years; }
                 })();
+            </script>
+            <!--
+        Testimonial read-more toggle
+    -->
+            <script>
+                function toggleTestimonial(btn) {
+                    var quote = btn.previousElementSibling;
+                    quote.classList.toggle('expanded');
+                    if (quote.classList.contains('expanded')) {
+                        btn.textContent = 'Read less';
+                        quote.scrollTop = 0;
+                    } else {
+                        btn.textContent = 'Read more';
+                    }
+                }
             </script>
 </body>
 
