@@ -185,6 +185,24 @@
         .testimonial-name-text {
             flex: 1;
         }
+        /* Subtle link affordance in prose/content — not nav, social icons, logo, or buttons */
+        .content.inner-top .text a,
+        .resume-item a,
+        .box-item .desc a,
+        .testimonial-name a,
+        .stat-callout a {
+            text-decoration: underline;
+            text-decoration-color: rgba(151, 169, 215, 0.35);
+            text-underline-offset: 3px;
+            transition: text-decoration-color 0.2s ease, color 0.2s ease;
+        }
+        .content.inner-top .text a:hover,
+        .resume-item a:hover,
+        .box-item .desc a:hover,
+        .testimonial-name a:hover,
+        .stat-callout a:hover {
+            text-decoration-color: rgba(151, 169, 215, 0.9);
+        }
         /* Hero testimonial — the featured, full-width quote */
         .testimonial-hero {
             padding: 34px 40px !important;
@@ -1494,6 +1512,22 @@
                     // SimpleBar builds its scroll wrapper shortly after DOMContentLoaded/load,
                     // so give it a moment before the first bind attempt.
                     setTimeout(bindActiveSection, 400);
+                })();
+            </script>
+            <!--
+        Logo click — currently just decorative with no behavior wired up.
+        Make it act like a normal site logo: click it, go Home.
+    -->
+            <script>
+                (function() {
+                    var logoLink = document.querySelector('.logo a');
+                    var homeNavLink = document.querySelector('.top-menu a[href="#home-card"]');
+                    if (logoLink && homeNavLink) {
+                        logoLink.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            homeNavLink.click();
+                        });
+                    }
                 })();
             </script>
 </body>
