@@ -309,6 +309,161 @@
             max-width: 180px;
             line-height: 1.4;
         }
+        /* 1. Animated nav indicator */
+        .header .top-menu {
+            position: relative;
+        }
+        .nav-indicator {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: rgba(88, 121, 206, 0.18);
+            border: 1px solid rgba(88, 121, 206, 0.4);
+            transition: top 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            top: 0;
+            opacity: 0;
+        }
+        .nav-indicator.ready {
+            opacity: 1;
+        }
+        /* 2. Next-section hint links */
+        .next-section-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 22px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            color: #97a9d7;
+            cursor: pointer;
+            text-decoration: none;
+            transition: gap 0.2s ease, color 0.2s ease;
+        }
+        .next-section-hint:hover {
+            gap: 10px;
+            color: #5879ce;
+        }
+        /* 3. Bento stats strip */
+        .bento-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 22px 0 6px 0;
+        }
+        .bento-stat {
+            background: rgba(255, 255, 255, 0.06);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 16px 10px;
+            text-align: center;
+        }
+        .bento-stat .bento-number {
+            font-size: 26px;
+            font-weight: 800;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #97a9d7, #5879ce);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .bento-stat .bento-caption {
+            font-size: 11px;
+            color: #cfcfcf;
+            margin-top: 4px;
+            line-height: 1.3;
+        }
+        @media (max-width: 640px) {
+            .bento-stats { grid-template-columns: repeat(2, 1fr); }
+        }
+        /* 4. vCard download button */
+        .vcard-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 18px;
+            padding: 10px 18px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #5879ce, #2c4585);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .vcard-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(88, 121, 206, 0.35);
+        }
+        /* 5. Tilt-on-hover (applied via JS to .testimonial-hero and .leadership-highlight) */
+        .tilt-card {
+            transition: transform 0.15s ease-out;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+        /* 6. Light mode — broad-strokes override of the main surfaces */
+        body.light-mode {
+            background: #f4f2ee !important;
+            color: #4a4a4a !important;
+        }
+        body.light-mode .card-inner .card-box {
+            background: rgba(0, 0, 0, 0.035) !important;
+            border: 1px solid rgba(0, 0, 0, 0.07) !important;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.06) !important;
+        }
+        body.light-mode .title-bg,
+        body.light-mode .name,
+        body.light-mode .content.inner-top .text p,
+        body.light-mode .resume-item .name,
+        body.light-mode .box-item .name,
+        body.light-mode h1.title,
+        body.light-mode h2.title-bg {
+            color: #2a2a2a !important;
+        }
+        body.light-mode .service-items .service-item p,
+        body.light-mode .bento-stat .bento-caption,
+        body.light-mode .stat-callout .stat-caption {
+            color: #6a6a6a !important;
+        }
+        body.light-mode .header {
+            background: rgba(244, 242, 238, 0.85) !important;
+        }
+        body.light-mode .grain-overlay {
+            opacity: 0.02;
+        }
+        body.light-mode .card-inner .card-image:before {
+            background: #f4f2ee !important;
+            opacity: 0.55 !important;
+        }
+        #theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #5879ce, #2c4585);
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease;
+        }
+        #theme-toggle:hover {
+            transform: scale(1.08);
+        }
         .testimonial-quote {
             max-height: 8.5em;
             line-height: 1.6em;
@@ -374,6 +529,7 @@
 
 <body>
     <div class="grain-overlay"></div>
+    <button type="button" id="theme-toggle" title="Toggle light / dark theme"><i class="la la-adjust"></i></button>
     <div id="scroll-progress-bar"></div>
     <div class="page">
         <!--
@@ -399,6 +555,7 @@
             </div>
             <!-- menu -->
             <div class="top-menu">
+                <div class="nav-indicator" id="nav-indicator"></div>
                 <ul>
                     <li class="active">
                         <a href="#home-card">
@@ -474,6 +631,7 @@
                             </div>
                             <span class="typed-title"></span>
                         </div>
+                        <a class="next-section-hint" onclick="goToSection('about-card')">More about me →</a>
                     </div>
                 </div>
             </div>
@@ -513,6 +671,25 @@
                                             <strong><a href="https://www.newdelhiymca.in/" target="_blank" rel="noopener noreferrer">New Delhi YMCA</a></strong>,
                                             and when I'm not working, I'm a long-distance cyclist (<a href="https://www.audaxindia.in/event-e-7890" target="_blank" rel="noopener noreferrer">BRM randonneur</a>).
                                         </p>
+                                    </div>
+                                    <!-- Bento stats strip -->
+                                    <div class="bento-stats">
+                                        <div class="bento-stat reveal">
+                                            <div class="bento-number"><span id="bento-years">6</span>+</div>
+                                            <div class="bento-caption">Years Experience</div>
+                                        </div>
+                                        <div class="bento-stat reveal">
+                                            <div class="bento-number">3</div>
+                                            <div class="bento-caption">Cyclothons Led</div>
+                                        </div>
+                                        <div class="bento-stat reveal">
+                                            <div class="bento-number">180</div>
+                                            <div class="bento-caption">Riders Briefed</div>
+                                        </div>
+                                        <div class="bento-stat reveal">
+                                            <div class="bento-number">13</div>
+                                            <div class="bento-caption">LinkedIn Recommendations</div>
+                                        </div>
                                     </div>
                                     <div class="circle-bts">
                                         <!-- CV download removed per request — add a new link here when ready -->
@@ -756,6 +933,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <a class="next-section-hint" onclick="goToSection('resume-card')">My full resume →</a>
                         </div>
                     </div>
                 </div>
@@ -1039,6 +1217,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <a class="next-section-hint" onclick="goToSection('leadership-card')">Leadership &amp; community →</a>
                         </div>
                     </div>
                 </div>
@@ -1133,6 +1312,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <a class="next-section-hint" onclick="goToSection('works-card')">Press &amp; highlights →</a>
                         </div>
                     </div>
                 </div>
@@ -1229,6 +1409,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <a class="next-section-hint" onclick="goToSection('contacts-card')">Get in touch →</a>
                         </div>
                     </div>
                 </div>
@@ -1309,6 +1490,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <button type="button" class="vcard-btn" onclick="downloadVCard()">
+                                        <i class="la la-download"></i> Save My Contact
+                                    </button>
+                                    <br>
+                                    <a class="next-section-hint" onclick="goToSection('home-card')">Back to top →</a>
                                 </div>
                             </div>
                         </div>
@@ -1371,19 +1557,20 @@
                     var done = false;
                     return function() {
                         if (done) return;
-                        var el = document.getElementById('years-exp');
-                        if (!el) return;
+                        var els = [document.getElementById('years-exp'), document.getElementById('bento-years')].filter(Boolean);
+                        if (!els.length) return;
                         done = true;
                         var duration = 1100;
                         var startTime = null;
                         function step(ts) {
                             if (!startTime) startTime = ts;
                             var progress = Math.min((ts - startTime) / duration, 1);
-                            el.textContent = Math.floor(progress * target);
+                            var current = Math.floor(progress * target);
+                            els.forEach(function(el) { el.textContent = current; });
                             if (progress < 1) {
                                 requestAnimationFrame(step);
                             } else {
-                                el.textContent = target;
+                                els.forEach(function(el) { el.textContent = target; });
                             }
                         }
                         requestAnimationFrame(step);
@@ -1528,6 +1715,130 @@
                             homeNavLink.click();
                         });
                     }
+                })();
+            </script>
+            <!--
+        goToSection() — shared helper used by "next section" hint links and the
+        logo, simulating a click on the real nav link so we reuse the site's
+        existing (jQuery) section-switching logic rather than duplicating it.
+    -->
+            <script>
+                function goToSection(cardId) {
+                    var navLink = document.querySelector('.top-menu a[href="#' + cardId + '"]');
+                    if (navLink) { navLink.click(); }
+                }
+            </script>
+            <!--
+        1. Animated nav indicator — slides a soft pill behind the active nav icon
+    -->
+            <script>
+                (function() {
+                    var indicator = document.getElementById('nav-indicator');
+                    var menu = document.querySelector('.top-menu');
+                    if (!indicator || !menu) return;
+
+                    function positionIndicator() {
+                        var activeLi = menu.querySelector('li.active');
+                        if (!activeLi) { indicator.style.opacity = '0'; return; }
+                        var menuRect = menu.getBoundingClientRect();
+                        var liRect = activeLi.getBoundingClientRect();
+                        var top = liRect.top - menuRect.top + (liRect.height / 2) - 20; // 20 = half of 40px indicator
+                        indicator.style.top = top + 'px';
+                        indicator.classList.add('ready');
+                    }
+
+                    if ('MutationObserver' in window) {
+                        var mo = new MutationObserver(positionIndicator);
+                        document.querySelectorAll('.top-menu li').forEach(function(li) {
+                            mo.observe(li, { attributes: true, attributeFilter: ['class'] });
+                        });
+                    }
+                    window.addEventListener('resize', positionIndicator);
+                    setTimeout(positionIndicator, 300);
+                })();
+            </script>
+            <!--
+        4. vCard download — generates a .vcf file client-side, no backend needed
+    -->
+            <script>
+                function downloadVCard() {
+                    var lines = [
+                        'BEGIN:VCARD',
+                        'VERSION:3.0',
+                        'N:Jacob;Oliver Joshua;;;',
+                        'FN:Oliver Joshua Jacob',
+                        'ORG:Tide Rock',
+                        'TITLE:Google Ads Manager & Performance Marketing Specialist',
+                        'TEL;TYPE=CELL:+9999140631',
+                        'EMAIL:oliverdgr888@gmail.com',
+                        'URL:https://josholiver.github.io/',
+                        'ADR;TYPE=WORK:;;New Delhi;;;India',
+                        'END:VCARD'
+                    ];
+                    var blob = new Blob([lines.join('\r\n')], { type: 'text/vcard' });
+                    var url = URL.createObjectURL(blob);
+                    var a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'Oliver-Joshua-Jacob.vcf';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }
+            </script>
+            <!--
+        5. Tilt-on-hover — subtle 3D mouse-follow tilt on the hero testimonial
+        and the YMCA leadership-highlight card
+    -->
+            <script>
+                (function() {
+                    var targets = document.querySelectorAll('.testimonial-hero, .leadership-highlight');
+                    targets.forEach(function(el) {
+                        el.classList.add('tilt-card');
+                        el.addEventListener('mousemove', function(e) {
+                            var rect = el.getBoundingClientRect();
+                            var x = e.clientX - rect.left;
+                            var y = e.clientY - rect.top;
+                            var midX = rect.width / 2;
+                            var midY = rect.height / 2;
+                            var rotateY = ((x - midX) / midX) * 3; // max ~3deg, kept subtle
+                            var rotateX = ((midY - y) / midY) * 3;
+                            el.style.transform = 'perspective(900px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+                        });
+                        el.addEventListener('mouseleave', function() {
+                            el.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+                        });
+                    });
+                })();
+            </script>
+            <!--
+        6. Light / dark theme toggle — persisted via localStorage (this is a real
+        deployed website, not a sandboxed artifact, so localStorage is fine here)
+    -->
+            <script>
+                (function() {
+                    var toggle = document.getElementById('theme-toggle');
+                    if (!toggle) return;
+                    var STORAGE_KEY = 'oliver-site-theme';
+
+                    function applyTheme(theme) {
+                        if (theme === 'light') {
+                            document.body.classList.add('light-mode');
+                        } else {
+                            document.body.classList.remove('light-mode');
+                        }
+                    }
+
+                    var saved = null;
+                    try { saved = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+                    if (saved) { applyTheme(saved); }
+
+                    toggle.addEventListener('click', function() {
+                        var isLight = document.body.classList.contains('light-mode');
+                        var next = isLight ? 'dark' : 'light';
+                        applyTheme(next);
+                        try { localStorage.setItem(STORAGE_KEY, next); } catch (e) {}
+                    });
                 })();
             </script>
 </body>
